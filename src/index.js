@@ -7,6 +7,7 @@ const movieReleaseYear = document.querySelector("#year-released")
 const movieDescription = document.querySelector("#description")
 const movieWatched = document.querySelector("#watched")
 const movieBloodAmount = document.querySelector("#amount")
+const bloodForm = document.querySelector("#blood-form")
 
 // global variable for persistence of watched/ unwatched between clicks
 let currentFilm;
@@ -43,6 +44,19 @@ const toggleWatchedProperty = (e) => {
     currentFilm.watched = !currentFilm.watched
 }
 
+const updateBloodAmount = (e) => {
+    // NO PAGE REFRESHES EVERRRRRR
+    e.preventDefault()
+    // figure out the number typed
+    const droplets = e.target.querySelector("#blood-amount").value
+    // modify object's property
+    currentFilm["blood_amount"] += parseInt(droplets)
+    // update page
+    movieBloodAmount.textContent = currentFilm["blood_amount"]
+    // reset form
+    e.target.reset()
+}
+
 
 
 // Execute code
@@ -62,5 +76,5 @@ fetch(MOVIESURL)
 // add event listener to watched button
 movieWatched.addEventListener("click", toggleWatchedProperty)
 
-
-
+// add event listener to form submit
+bloodForm.addEventListener("submit", updateBloodAmount)
